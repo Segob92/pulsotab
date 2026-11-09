@@ -5,5 +5,5 @@
  * Tus usuarios siguen entrando por la misma dirección de GitHub.
  */
 window.PULSO_INICIO = {
-  url: 'PEGA_AQUI_EL_LINK_EXEC_DEL_PROYECTO_PULSO_INICIO'
+  url: 'https://script.google.com/macros/s/AKfycbwfXXzWUK8aDhIwCCgRGUxF4LnCl8lBdDZsb7ueCmgkxjZyJb3me9kFzCSSgDfl9Odr/exec'
 };

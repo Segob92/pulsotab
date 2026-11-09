@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulso Tabasco</title>
+<meta name="description" content="Monitoreo de medios · Secretaría de Gobierno">
+<meta name="theme-color" content="#691C32">
+<link rel="icon" type="image/svg+xml" href="img/logo.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="img/favicon-32.png">
+<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Pulso">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--guinda:#691C32;--guinda2:#9F2241;--dorado:#A57F2C;--verde:#235B4E;--fondo:#F6F3EF;--tinta:#2B2326;--gris:#6F6A6B;--linea:#E4DCD6;--tarjeta:#FFFFFF}
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{background:var(--fondo);color:var(--tinta);font-family:"Montserrat","Segoe UI",Roboto,Arial,sans-serif;min-height:100vh;display:flex;flex-direction:column}
+  .barra{height:6px;background:linear-gradient(90deg,var(--guinda) 0 60%,var(--dorado) 60% 100%)}
+  header{width:100%;max-width:1100px;margin:0 auto;padding:28px 16px 6px;display:flex;align-items:center;gap:16px}
+  header img{width:58px;height:58px;flex:none;border-radius:14px;box-shadow:0 6px 18px rgba(105,28,50,.25)}
+  h1{margin:0;font-size:26px;letter-spacing:-.01em;color:var(--guinda)}
+  .sub{margin:3px 0 0;color:var(--gris);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase}
+  main{width:100%;max-width:1100px;margin:0 auto;padding:12px 16px 32px;flex:1}
+  .intro{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:12px 0 18px}
+  .intro p{margin:0;font-size:15px}
+  input{font:inherit;font-size:15px;padding:11px 14px;border:1px solid var(--linea);border-radius:10px;background:#fff;width:100%;max-width:320px}
+  input:focus{outline:2px solid var(--guinda2);outline-offset:1px}
+  .rapido{display:none;margin:0 0 18px;padding:14px 16px;border-radius:14px;background:var(--guinda);color:#fff;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .rapido.si{display:flex}
+  .rapido span{font-size:14px}
+  .rapido a{background:var(--dorado);color:#fff;text-decoration:none;font-weight:700;padding:10px 18px;border-radius:10px;font-size:14px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+  a.persona{display:flex;flex-direction:column;align-items:center;gap:10px;padding:22px 12px 18px;background:var(--tarjeta);border:1px solid var(--linea);border-radius:14px;text-decoration:none;color:var(--tinta);text-align:center;transition:transform .12s,box-shadow .12s,border-color .12s}
+  a.persona:hover,a.persona:focus-visible{transform:translateY(-2px);box-shadow:0 8px 22px rgba(105,28,50,.14);border-color:var(--guinda2);outline:none}
+  .ini{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:20px;color:#fff}
+  .nom{font-weight:600;font-size:15px;line-height:1.3;overflow-wrap:anywhere}
+  .ir{font-size:12px;color:var(--dorado);font-weight:700;letter-spacing:.05em}
+  .aviso{grid-column:1/-1;background:#fff;border:1px dashed var(--guinda2);border-radius:12px;padding:18px;color:var(--guinda);font-size:15px;line-height:1.5}
+  .esq{height:150px;border-radius:14px;background:linear-gradient(90deg,#EFE9E4 25%,#F7F3F0 50%,#EFE9E4 75%);background-size:200% 100%;animation:b 1.2s infinite}
+  @keyframes b{to{background-position:-200% 0}}
+  footer{text-align:center;color:var(--gris);font-size:12px;padding:0 16px 24px;line-height:1.6}
+  @media (max-width:480px){header{padding-top:20px}h1{font-size:22px}header img{width:50px;height:50px}.grid{grid-template-columns:repeat(2,1fr);gap:10px}input{max-width:none}}
+</style>
+</head>
+<body>
+<div class="barra"></div>
+<header>
+  <img src="img/icono-192.png" alt="Logo de Pulso Tabasco">
+  <div><h1>Pulso Tabasco</h1><p class="sub">Monitoreo de medios · Secretaría de Gobierno</p></div>
+</header>
+<main>
+  <div class="rapido" id="rapido"><span id="rapidoTxt"></span><a id="rapidoLnk" href="#">Entrar</a></div>
+  <div class="intro"><p><b>¿Quién eres?</b> Toca tu nombre para entrar.</p><input id="q" type="search" placeholder="Buscar nombre…" aria-label="Buscar nombre" autocomplete="off"></div>
+  <div id="grid" class="grid"><div class="esq"></div><div class="esq"></div><div class="esq"></div><div class="esq"></div></div>
+</main>
+<footer>Si tu nombre no aparece, pide que te agreguen en Pulso → Documentos y reportes → Ligas personales.<br>En el celular: menú del navegador → <b>Agregar a pantalla de inicio</b> para tener el ícono.</footer>
+<script src="config.js"></script>
+<script>
+(function () {
+  var COL = ['#691C32', '#9F2241', '#A57F2C', '#235B4E', '#7A4E8C', '#2F6690', '#8A6A22', '#B03A55'];
+  var D = null;
+  var $ = function (id) { return document.getElementById(id); };
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function ini(n) { var p = n.trim().split(/\s+/); return ((p[0] || '').charAt(0) + (p.length > 2 ? p[p.length - 2] : p[1] || '').charAt(0)).toUpperCase(); }
+  function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function color(n) { return COL[n.split('').reduce(function (a, ch) { return a + ch.charCodeAt(0); }, 0) % COL.length]; }
+  function guardar(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function leer(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function liga(p) { return D.url + '?u=' + encodeURIComponent(p.k); }
+  function aviso(t) { $('grid').innerHTML = '<div class="aviso">' + t + '</div>'; }
+
+  function pintar() {
+    if (!D) return;
+    if (D.error) { aviso(esc(D.error)); return; }
+    if (!D.url) { aviso('Pulso todavía no tiene registrado su link /exec. Regístralo en Pulso → Documentos y reportes → Ligas personales.'); return; }
+    if (!D.personas || !D.personas.length) { aviso('Todavía no hay personas registradas. Agrégalas en Pulso → Documentos y reportes → Ligas personales.'); return; }
+    var q = norm($('q').value.trim());
+    var l = D.personas.filter(function (p) { return !q || norm(p.n).indexOf(q) >= 0; });
+    $('grid').innerHTML = l.map(function (p) {
+      return '<a class="persona" data-k="' + esc(p.k) + '" href="' + esc(liga(p)) + '"><span class="ini" style="background:' + color(p.n) + '">' + esc(ini(p.n)) + '</span><span class="nom">' + esc(p.n) + '</span><span class="ir">ENTRAR →</span></a>';
+    }).join('') || '<div class="aviso">No hay nadie con ese nombre.</div>';
+    // Acceso rápido para quien ya entró desde este equipo
+    var yo = leer('pulso_yo'), p = yo && D.personas.filter(function (x) { return x.k === yo; })[0];
+    if (p && !q) { $('rapidoTxt').textContent = 'Hola, ' + p.n.split(/\s+/)[0] + '. ¿Entras de nuevo?'; $('rapidoLnk').href = liga(p); $('rapido').classList.add('si'); }
+    else $('rapido').classList.remove('si');
+  }
+
+  $('grid').addEventListener('click', function (e) { var a = e.target.closest('a.persona'); if (a) guardar('pulso_yo', a.getAttribute('data-k')); });
+  $('q').addEventListener('input', pintar);
+
+  // Muestra al instante la última lista conocida y luego la actualiza en vivo
+  try { var c = JSON.parse(leer('pulso_lista') || 'null'); if (c && c.url) { D = c; pintar(); } } catch (e) {}
+
+  var url = (window.PULSO_INICIO && window.PULSO_INICIO.url) || '';
+  if (!/^https:\/\/script\.google\.com\/.+\/exec$/.test(url)) { if (!D) aviso('Falta configurar el link del proyecto "Pulso Inicio" en el archivo config.js.'); return; }
+  var listo = false;
+  window.__pulsoLista = function (d) {
+    listo = true; D = d || { error: 'Respuesta vacía.' };
+    if (D.url && !D.error) guardar('pulso_lista', JSON.stringify(D));
+    pintar();
+  };
+  var s = document.createElement('script');
+  s.src = url + '?formato=json&callback=__pulsoLista&t=' + Date.now();
+  s.onerror = function () { if (!listo && !D) aviso('No pude cargar la lista. Revisa tu conexión o que el proyecto "Pulso Inicio" esté implementado con acceso para <b>Cualquier usuario</b>.'); };
+  document.body.appendChild(s);
+  setTimeout(function () { if (!listo && !D) aviso('La lista está tardando. Recarga la página en un momento.'); }, 15000);
+
+  if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+})();
+</script>
+</body>
+</html>

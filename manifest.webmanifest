@@ -1,0 +1,16 @@
+{
+  "name": "Pulso Tabasco",
+  "short_name": "Pulso",
+  "description": "Monitoreo de medios · Secretaría de Gobierno",
+  "lang": "es-MX",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F6F3EF",
+  "theme_color": "#691C32",
+  "icons": [
+    { "src": "img/icono-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "img/icono-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "img/icono-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
